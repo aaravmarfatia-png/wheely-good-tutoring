@@ -43,17 +43,21 @@ async function loadJSON(path) {
 
 // ---- subjects ------------------------------------------------------------
 
-// Maps a category name to a decorative color-class. The class only drives a
-// colored dot in CSS; the category text itself is still set via textContent.
+// Maps a category name to a decorative color+icon class. The class only drives
+// a colored icon in CSS; the category text itself is still set via textContent.
+// The mapping is a controlled normalization (lowercase, strip spaces/slashes)
+// of the category string — never raw innerHTML — and unknown values fall back
+// to 'cat-other' so a subject is never left unstyled / showing a plain dot.
 function categoryClass(name) {
-  switch (String(name).toLowerCase()) {
+  switch (String(name).toLowerCase().replace(/[\s/]+/g, '')) {
     case 'math': return 'cat-math';
     case 'science': return 'cat-science';
     case 'english': return 'cat-english';
-    case 'history/social studies': return 'cat-history';
-    case 'world languages': return 'cat-languages';
-    case 'computer science': return 'cat-cs';
-    default: return '';
+    case 'historysocialstudies': return 'cat-history';
+    case 'worldlanguages': return 'cat-languages';
+    case 'computerscience': return 'cat-cs';
+    case 'other': return 'cat-other';
+    default: return 'cat-other';
   }
 }
 
@@ -67,10 +71,7 @@ function subjectCard(subject) {
 
   const category = document.createElement('p');
   category.className = 'subject-category';
-  const catClass = categoryClass(subject.category);
-  if (catClass) {
-    category.classList.add(catClass);
-  }
+  category.classList.add(categoryClass(subject.category));
   category.textContent = subject.category;
   card.appendChild(category);
 
@@ -244,7 +245,7 @@ function initialsFor(name) {
   return (first + last).toUpperCase();
 }
 
-function tutorCard(tutor) {
+function tutorCard(tutor, categoryByName) {
   var card = document.createElement('article');
   card.className = 'card tutor-card';
 
@@ -297,6 +298,11 @@ function tutorCard(tutor) {
     tutor.subjects.forEach(function (subject) {
       var badge = document.createElement('span');
       badge.className = 'badge';
+      // Color-key the badge by the subject NAME's category. Unknown names fall
+      // back to cat-other (categoryClass never returns empty), so every badge
+      // is themed. The badge text itself is still the subject name, set below.
+      var category = categoryByName ? categoryByName[subject] : undefined;
+      badge.classList.add(categoryClass(category));
       badge.textContent = subject;
       badges.appendChild(badge);
     });
@@ -313,7 +319,7 @@ function tutorCard(tutor) {
   return card;
 }
 
-function renderTutors(container, tutors) {
+function renderTutors(container, tutors, categoryByName) {
   clear(container);
   if (!tutors.length) {
     showMessage(container, 'empty-state', 'No tutors listed yet — check back soon!');
@@ -322,7 +328,7 @@ function renderTutors(container, tutors) {
   var grid = document.createElement('div');
   grid.className = 'grid grid-2 grid-3';
   tutors.forEach(function (tutor) {
-    grid.appendChild(tutorCard(tutor));
+    grid.appendChild(tutorCard(tutor, categoryByName));
   });
   container.appendChild(grid);
 }
@@ -342,7 +348,24 @@ async function initTutors() {
     return;
   }
 
-  renderTutors(grid, tutors);
+  // Build a subject-name -> category index so each badge can be color-keyed by
+  // category. If subjects.json fails to load, badges still render (as
+  // cat-other) rather than breaking the tutors grid.
+  var categoryByName = {};
+  try {
+    var subjects = await loadJSON('data/subjects.json');
+    if (Array.isArray(subjects)) {
+      subjects.forEach(function (s) {
+        if (s && s.name) {
+          categoryByName[s.name] = s.category;
+        }
+      });
+    }
+  } catch (e) {
+    categoryByName = {};
+  }
+
+  renderTutors(grid, tutors, categoryByName);
 }
 
 // ---- boot ----------------------------------------------------------------

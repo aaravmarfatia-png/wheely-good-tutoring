@@ -62,6 +62,33 @@
   --hero-tint-2: rgba(106, 163, 255, 0.05);
 }
 
+/* ---------------------------------------------------------------------------
+   Subject-category theme colors — NEW custom properties only (the six base
+   tokens above are untouched). Each category drives a decorative icon hue on
+   subject cards and tutor badges. Values chosen to clear the 3:1 non-text UI
+   contrast target against the light/dark card backgrounds; category/badge TEXT
+   stays on --muted / --accent so existing AA text contrast is unaffected.
+--------------------------------------------------------------------------- */
+:root {
+  --cat-math: #2f6bd6;      /* blue/indigo  */
+  --cat-science: #1c8257;   /* green/teal   */
+  --cat-english: #b9671a;   /* amber/orange */
+  --cat-history: #8a5a2b;   /* brown/terracotta */
+  --cat-languages: #b23a8a; /* magenta/violet */
+  --cat-cs: #11808a;        /* teal (inert until a CS category exists) */
+  --cat-other: #5b6b7c;     /* neutral muted */
+}
+[data-theme='dark'] {
+  /* Lightened so icons stay legible on the dark card backgrounds. */
+  --cat-math: #7aa7ff;
+  --cat-science: #4fc48a;
+  --cat-english: #f0a85a;
+  --cat-history: #d79a66;
+  --cat-languages: #e67ac0;
+  --cat-cs: #4fc9cf;
+  --cat-other: #9fb0c2;
+}
+
 *,
 *::before,
 *::after {
@@ -396,7 +423,8 @@ svg {
 
 /* Subject badges */
 .badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   padding: 2px var(--space-1);
   margin: 2px 4px 2px 0;
   font-size: 0.8125rem;
@@ -419,22 +447,75 @@ svg {
   background: var(--bg);
   border: 1px solid var(--border);
 }
-/* A small colored dot keys the category to a hue.
-   Colors are decorative accents only (text stays on muted for AA). */
-.subject-category::before {
+/* A small colored icon keys the category to a hue. The glyph is drawn with an
+   SVG mask tinted by --cat-color, so the shape follows the category class and
+   the color follows the per-theme token. Colors are decorative accents only —
+   category/badge text stays on --muted / --accent for AA. The base rule carries
+   the neutral sparkle (cat-other) glyph so an unclassed element is never a bare
+   dot; per-category rules below swap only the mask shape. */
+.subject-category::before,
+.badge.cat-math::before,
+.badge.cat-science::before,
+.badge.cat-english::before,
+.badge.cat-history::before,
+.badge.cat-languages::before,
+.badge.cat-cs::before,
+.badge.cat-other::before {
   content: '';
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--cat-color, var(--accent));
   flex: none;
+  width: 13px;
+  height: 13px;
+  background-color: var(--cat-color, var(--cat-other));
+  -webkit-mask: var(--cat-icon, var(--icon-other)) center / contain no-repeat;
+  mask: var(--cat-icon, var(--icon-other)) center / contain no-repeat;
 }
-.cat-math { --cat-color: #2f80ed; }
-.cat-science { --cat-color: #27ae60; }
-.cat-english { --cat-color: #9b51e0; }
-.cat-history { --cat-color: #e2873a; }
-.cat-languages { --cat-color: #eb5757; }
-.cat-cs { --cat-color: #11a0a6; }
+.badge.cat-math::before,
+.badge.cat-science::before,
+.badge.cat-english::before,
+.badge.cat-history::before,
+.badge.cat-languages::before,
+.badge.cat-cs::before,
+.badge.cat-other::before {
+  width: 11px;
+  height: 11px;
+  margin-right: 4px;
+}
+
+/* Per-category color + icon-shape bindings (public .cat-* hooks). */
+.cat-math { --cat-color: var(--cat-math); --cat-icon: var(--icon-math); }
+.cat-science { --cat-color: var(--cat-science); --cat-icon: var(--icon-science); }
+.cat-english { --cat-color: var(--cat-english); --cat-icon: var(--icon-english); }
+.cat-history { --cat-color: var(--cat-history); --cat-icon: var(--icon-history); }
+.cat-languages { --cat-color: var(--cat-languages); --cat-icon: var(--icon-languages); }
+.cat-cs { --cat-color: var(--cat-cs); --cat-icon: var(--icon-cs); }
+.cat-other { --cat-color: var(--cat-other); --cat-icon: var(--icon-other); }
+
+/* SVG mask glyphs (data URIs — no new network requests, works at any subpath).
+   Shape only; the mask ignores fill color, the tint comes from --cat-color.
+   Math: square-root/function radical. Science: Erlenmeyer flask. English: open
+   book. History: globe. Languages: speech bubble (no flag). Other/CS: sparkle /
+   code motif. */
+:root {
+  --icon-math: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 13l3 6 4-14h11'/%3E%3Cpath d='M15 7l4 4m0-4l-4 4'/%3E%3C/svg%3E");
+  --icon-science: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3'/%3E%3Cpath d='M7.5 15h9'/%3E%3C/svg%3E");
+  --icon-english: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 6c-1.8-1.2-4-2-7-2v14c3 0 5.2.8 7 2 1.8-1.2 4-2 7-2V4c-3 0-5.2.8-7 2z'/%3E%3Cpath d='M12 6v14'/%3E%3C/svg%3E");
+  --icon-history: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M3 12h18'/%3E%3Cpath d='M12 3c3 3.2 3 14.8 0 18-3-3.2-3-14.8 0-18z'/%3E%3C/svg%3E");
+  --icon-languages: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 4h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-4 4v-4H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z'/%3E%3Cpath d='M8 10h0M12 10h0M16 10h0'/%3E%3C/svg%3E");
+  --icon-cs: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 8l-4 4 4 4M16 8l4 4-4 4M13 6l-2 12'/%3E%3C/svg%3E");
+  --icon-other: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3c.6 3.5 2.5 5.4 6 6-3.5.6-5.4 2.5-6 6-.6-3.5-2.5-5.4-6-6 3.5-.6 5.4-2.5 6-6z'/%3E%3C/svg%3E");
+}
+
+/* Tutor subject badges that carry a category class take a subtle hue tint on
+   the border; the badge text stays on --accent for AA. */
+.badge.cat-math,
+.badge.cat-science,
+.badge.cat-english,
+.badge.cat-history,
+.badge.cat-languages,
+.badge.cat-cs,
+.badge.cat-other {
+  border-color: color-mix(in srgb, var(--cat-color) 45%, var(--border));
+}
 
 /* Announcements */
 .announcement {
@@ -617,6 +698,68 @@ details.accordion > summary + * {
   font-size: var(--step-2);
   color: var(--muted);
   max-width: var(--prose);
+}
+
+/* ---------------------------------------------------------------------------
+   Decorative subject motifs (PART B)
+   Faint, non-interactive subject glyphs behind the hero and section headers.
+   Pseudo-elements are not announced to assistive tech; pointer-events: none
+   keeps them out of the way; the host clips overflow so they never create
+   horizontal scroll at 360px. Opacity is tuned per theme for legibility, and
+   nothing animates (reduced-motion needs no new rule).
+--------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+.hero > .container {
+  position: relative;
+  z-index: 1;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  right: -4%;
+  width: min(42vw, 360px);
+  height: min(42vw, 360px);
+  pointer-events: none;
+  opacity: 0.05;
+  background: var(--motif-hero) center / contain no-repeat;
+}
+[data-theme='dark'] .hero::after {
+  opacity: 0.08;
+}
+
+/* A single faint glyph trailing each section heading. */
+.section > .container > h2 {
+  position: relative;
+}
+.section > .container > h2::after {
+  content: '';
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-left: 0.4em;
+  vertical-align: baseline;
+  pointer-events: none;
+  opacity: 0.18;
+  background: var(--motif-heading) center / contain no-repeat;
+}
+[data-theme='dark'] .section > .container > h2::after {
+  opacity: 0.26;
+}
+
+:root {
+  /* Composite of subject glyphs (math symbols, hexagon/molecule, book, speech
+     bubble) for the hero backdrop, and a compact math/science motif for the
+     section headings. Monochrome so they inherit the faint low-opacity wash. */
+  --motif-hero: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' fill='none' stroke='%231f5fd6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 24h14M17 17v14'/%3E%3Cpath d='M96 20l8 8m0-8l-8 8'/%3E%3Cpath d='M20 70l4 8 5-18h14'/%3E%3Cpolygon points='92,58 104,65 104,79 92,86 80,79 80,65'/%3E%3Ccircle cx='92' cy='72' r='3'/%3E%3Cpath d='M22 98c-3-2-6-3-10-3v16c4 0 7 1 10 3 3-2 6-3 10-3V95c-4 0-7 1-10 3zM22 98v16'/%3E%3Cpath d='M70 96h30a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H84l-5 5v-5h-9a2 2 0 0 1-2-2V98a2 2 0 0 1 2-2z'/%3E%3C/svg%3E");
+  --motif-heading: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231f5fd6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3c.6 3.5 2.5 5.4 6 6-3.5.6-5.4 2.5-6 6-.6-3.5-2.5-5.4-6-6 3.5-.6 5.4-2.5 6-6z'/%3E%3C/svg%3E");
+}
+[data-theme='dark'] {
+  --motif-hero: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' fill='none' stroke='%23cfe0ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 24h14M17 17v14'/%3E%3Cpath d='M96 20l8 8m0-8l-8 8'/%3E%3Cpath d='M20 70l4 8 5-18h14'/%3E%3Cpolygon points='92,58 104,65 104,79 92,86 80,79 80,65'/%3E%3Ccircle cx='92' cy='72' r='3'/%3E%3Cpath d='M22 98c-3-2-6-3-10-3v16c4 0 7 1 10 3 3-2 6-3 10-3V95c-4 0-7 1-10 3zM22 98v16'/%3E%3Cpath d='M70 96h30a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H84l-5 5v-5h-9a2 2 0 0 1-2-2V98a2 2 0 0 1 2-2z'/%3E%3C/svg%3E");
+  --motif-heading: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23cfe0ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3c.6 3.5 2.5 5.4 6 6-3.5.6-5.4 2.5-6 6-.6-3.5-2.5-5.4-6-6 3.5-.6 5.4-2.5 6-6z'/%3E%3C/svg%3E");
 }
 
 .schedule-card {
