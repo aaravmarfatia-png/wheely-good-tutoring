@@ -3,3 +3,8 @@
 
 # OS cruft
 .DS_Store
+
+# Founder-provided source photos — not referenced by the site
+*.JPG
+*.JPEG
+*.HEIC
