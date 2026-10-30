@@ -1,0 +1,68 @@
+[
+  {
+    "name": "Algebra I & II",
+    "category": "Math",
+    "levels": ["Honors", "College Prep"]
+  },
+  {
+    "name": "Geometry",
+    "category": "Math",
+    "levels": ["Honors", "College Prep"]
+  },
+  {
+    "name": "Pre-Calculus & Calculus",
+    "category": "Math",
+    "levels": ["AP", "Honors"]
+  },
+  {
+    "name": "Biology",
+    "category": "Science",
+    "levels": ["Honors", "College Prep"]
+  },
+  {
+    "name": "Chemistry",
+    "category": "Science",
+    "levels": ["AP", "College Prep"]
+  },
+  {
+    "name": "Physics",
+    "category": "Science"
+  },
+  {
+    "name": "Literature & Composition",
+    "category": "English",
+    "levels": ["AP", "College Prep"]
+  },
+  {
+    "name": "Writing & Grammar",
+    "category": "English"
+  },
+  {
+    "name": "US History",
+    "category": "History/Social Studies",
+    "levels": ["AP", "College Prep"]
+  },
+  {
+    "name": "World History",
+    "category": "History/Social Studies"
+  },
+  {
+    "name": "Spanish",
+    "category": "World Languages",
+    "levels": ["I", "II", "III", "IV"]
+  },
+  {
+    "name": "French",
+    "category": "World Languages",
+    "levels": ["I", "II", "III"]
+  },
+  {
+    "name": "Intro to Programming",
+    "category": "Computer Science"
+  },
+  {
+    "name": "AP Computer Science",
+    "category": "Computer Science",
+    "levels": ["AP"]
+  }
+]

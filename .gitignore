@@ -1,0 +1,5 @@
+# Planning artifacts — not part of the deployed site
+.agents/
+
+# OS cruft
+.DS_Store

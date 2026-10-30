@@ -1,0 +1,26 @@
+[
+  {
+    "date": "2024-09-11",
+    "title": "Wheely Good Tutoring is open for the year!",
+    "body": "Our free peer tutoring club is back every Wednesday. Drop in for help in math, science, English, history, world languages, and computer science. No appointment required, but signing up helps us pair you with the right tutor.",
+    "pinned": true
+  },
+  {
+    "date": "2024-09-18",
+    "title": "Wednesday reminder: bring your materials",
+    "body": "Heading to a session this week? Bring the assignment you are working on, your notes, and any questions you have. The more specific the better, so our tutors can jump straight in.",
+    "pinned": false
+  },
+  {
+    "date": "2024-10-02",
+    "title": "Subject spotlight: Chemistry support",
+    "body": "Struggling with stoichiometry or balancing equations? We have added more chemistry tutors on Wednesdays. Stop by and get hands-on help before your next test.",
+    "pinned": false
+  },
+  {
+    "date": "2024-12-09",
+    "title": "Extended hours during exam season",
+    "body": "Finals are coming. We are planning extra review sessions in the weeks leading up to exams. Watch this space for confirmed times and come prepared with your study guides.",
+    "pinned": false
+  }
+]
