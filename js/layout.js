@@ -10,11 +10,12 @@
 (function () {
   'use strict';
 
-  // Nav links in required order. NO "Meet the Tutors".
+  // Nav links in required order.
   var NAV_LINKS = [
     { page: 'home', href: 'index.html', label: 'Home' },
     { page: 'about', href: 'about.html', label: 'About' },
     { page: 'schedule', href: 'schedule.html', label: 'Schedule & Subjects' },
+    { page: 'tutors', href: 'tutors.html', label: 'Meet the Tutors' },
     { page: 'signup', href: 'signup.html', label: 'Sign Up' },
     { page: 'news', href: 'news.html', label: 'News' },
     { page: 'faq', href: 'faq.html', label: 'FAQ & Contact' }

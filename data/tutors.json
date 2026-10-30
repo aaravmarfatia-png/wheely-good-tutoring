@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Aarav Marfatia",
+    "grade": "Grade TODO",
+    "subjects": ["Pre-Calculus & Calculus", "AP Computer Science"],
+    "bio": "TODO(founders): add a short bio for Aarav Marfatia.",
+    "photo": "AM.webp"
+  },
+  {
+    "name": "Adhidev Nithyanadan",
+    "grade": "Grade TODO",
+    "subjects": ["Physics", "Chemistry"],
+    "bio": "TODO(founders): add a short bio for Adhidev Nithyanadan.",
+    "photo": "AN.webp"
+  },
+  {
+    "name": "Adam Sadan",
+    "grade": "Grade TODO",
+    "subjects": ["Algebra I & II", "Biology"],
+    "bio": "TODO(founders): add a short bio for Adam Sadan.",
+    "photo": "AS.webp"
+  },
+  {
+    "name": "Ethan Torres",
+    "grade": "Grade TODO",
+    "subjects": ["Literature & Composition", "US History"],
+    "bio": "TODO(founders): add a short bio for Ethan Torres.",
+    "photo": "ET.webp"
+  },
+  {
+    "name": "Mateus Aguiar",
+    "grade": "Grade TODO",
+    "subjects": ["Spanish", "World History"],
+    "bio": "TODO(founders): add a short bio for Mateus Aguiar.",
+    "photo": "MA.webp"
+  }
+]

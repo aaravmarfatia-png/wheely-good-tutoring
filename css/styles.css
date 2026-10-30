@@ -475,6 +475,67 @@ svg {
 }
 
 /* ---------------------------------------------------------------------------
+   Tutor cards (Meet the Tutors)
+--------------------------------------------------------------------------- */
+.tutor-card {
+  text-align: center;
+}
+.tutor-card .badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+}
+/* Square thumbnail wrapper: holds the photo and the initials fallback,
+   which share the same box so a missing photo reveals the avatar. */
+.tutor-thumb {
+  position: relative;
+  width: 140px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto var(--space-3);
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+.tutor-photo {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+/* Initials avatar sits behind the photo; visible only if the photo is absent. */
+.tutor-avatar {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--step-3);
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--hero-tint);
+}
+.tutor-name {
+  margin-bottom: var(--space-1);
+}
+.tutor-grade {
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0 0 var(--space-2);
+}
+.tutor-bio {
+  color: var(--muted);
+  margin-top: var(--space-2);
+  margin-bottom: 0;
+}
+
+/* ---------------------------------------------------------------------------
    In-flow Sign Up CTA band (NOT fixed — stays in document flow, safe at 360px)
 --------------------------------------------------------------------------- */
 .cta-band {

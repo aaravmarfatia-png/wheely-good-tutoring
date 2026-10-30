@@ -77,6 +77,47 @@ Example without levels (the `levels` field is simply left out):
 The Home page shows the first 6 subjects (`#subjects-preview`); the Schedule page shows all
 subjects (`#subjects-grid`) with a live search box (`#subject-search`).
 
+### `data/tutors.json`
+
+Powers the **Meet the Tutors** page (`tutors.html`), which renders one card per tutor into
+`#tutors-grid`. Each tutor is an object with these fields:
+
+| Field      | Type   | Notes                                                                                     |
+|------------|--------|-------------------------------------------------------------------------------------------|
+| `name`     | string | The tutor's full name (e.g. `Aarav Marfatia`). Also used as the photo's `alt` text.       |
+| `grade`    | string | The tutor's grade (e.g. `Grade 11`). Currently a `Grade TODO` placeholder.                |
+| `subjects` | array  | List of subject-name strings shown as badges. Draw them from `data/subjects.json` names.  |
+| `bio`      | string | A short bio (plain text, rendered as text, not HTML). Currently a `TODO(founders)` note.  |
+| `photo`    | string | The image **filename** inside `assets/tutors/` (e.g. `AM.webp`), not a full path.         |
+
+Example entry:
+
+```json
+{
+  "name": "Aarav Marfatia",
+  "grade": "Grade 11",
+  "subjects": ["Pre-Calculus & Calculus", "AP Computer Science"],
+  "bio": "Aarav loves turning tricky proofs into something that finally clicks. Catch him at the whiteboard most Wednesdays.",
+  "photo": "AM.webp"
+}
+```
+
+**Photos** live in `assets/tutors/`. Use a square image (the current set is 800×800) saved
+as WebP and kept **under 200 KB** each so the page stays fast. The page shows the photo as a
+rounded square thumbnail; if a photo is missing or fails to load, the card falls back to an
+initials avatar derived from the name.
+
+**To add or replace a tutor:**
+
+1. Drop the square WebP photo into `assets/tutors/` (e.g. `assets/tutors/JD.webp`).
+2. Add (or edit) the tutor's object in `data/tutors.json`, setting `photo` to just the
+   filename (`"JD.webp"`), and keep the JSON valid.
+3. Serve the folder over HTTP (see below) and confirm the card renders.
+
+> **TODO(founders):** the shipped entries use placeholder `grade`, `subjects`, and `bio`
+> values (`Grade TODO` and `TODO(founders): ...` bios). Replace them with each tutor's real
+> grade, the subjects they actually tutor, and a real short bio before launch.
+
 ## Testing locally
 
 The pages load their data with `fetch()` against the JSON files in `data/`. Browsers block
@@ -151,3 +192,6 @@ A few items still need real information before the site is launch-ready. Each ha
   it in once Mr. Pyburn confirms.
 - **Review and edit the FAQ answers** — the answers in `faq.html` are placeholder copy;
   revise them to match how the club actually runs.
+- **Fill in the tutor details** — `data/tutors.json` ships with placeholder `grade`,
+  `subjects`, and `bio` values for each tutor. Replace them with real info (see the
+  `data/tutors.json` section above). The tutor photos in `assets/tutors/` are final.

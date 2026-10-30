@@ -12,6 +12,7 @@
  *   #subject-search      -> live case-insensitive substring filter on name
  *   #announcements-latest-> 3 latest announcements (home)
  *   #announcements-list  -> all announcements (news)
+ *   #tutors-grid         -> all tutors (tutors.html)
  *
  * fetch() of local JSON only works over http(s), not file://.
  */
@@ -230,11 +231,126 @@ async function initAnnouncements() {
   }
 }
 
+// ---- tutors --------------------------------------------------------------
+
+// Derive up-to-two-letter initials from a name for the photo fallback avatar.
+function initialsFor(name) {
+  var parts = String(name).trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) {
+    return '?';
+  }
+  var first = parts[0].charAt(0);
+  var last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
+  return (first + last).toUpperCase();
+}
+
+function tutorCard(tutor) {
+  var card = document.createElement('article');
+  card.className = 'card tutor-card';
+
+  // Photo thumbnail with an initials-avatar fallback if the image is missing.
+  var thumb = document.createElement('div');
+  thumb.className = 'tutor-thumb';
+
+  var avatar = document.createElement('span');
+  avatar.className = 'tutor-avatar';
+  avatar.setAttribute('aria-hidden', 'true');
+  avatar.textContent = initialsFor(tutor.name);
+
+  if (tutor.photo) {
+    var img = document.createElement('img');
+    img.className = 'tutor-photo';
+    img.setAttribute('src', 'assets/tutors/' + tutor.photo);
+    img.setAttribute('alt', tutor.name);
+    img.setAttribute('loading', 'lazy');
+    img.setAttribute('decoding', 'async');
+    img.setAttribute('width', '800');
+    img.setAttribute('height', '800');
+    // If the photo fails to load, drop it so the initials avatar shows through.
+    img.addEventListener('error', function () {
+      if (img.parentNode) {
+        img.parentNode.removeChild(img);
+      }
+    });
+    thumb.appendChild(avatar);
+    thumb.appendChild(img);
+  } else {
+    thumb.appendChild(avatar);
+  }
+  card.appendChild(thumb);
+
+  var name = document.createElement('h3');
+  name.className = 'tutor-name';
+  name.textContent = tutor.name;
+  card.appendChild(name);
+
+  if (tutor.grade) {
+    var grade = document.createElement('p');
+    grade.className = 'tutor-grade';
+    grade.textContent = tutor.grade;
+    card.appendChild(grade);
+  }
+
+  if (Array.isArray(tutor.subjects) && tutor.subjects.length) {
+    var badges = document.createElement('p');
+    badges.className = 'badge-row';
+    tutor.subjects.forEach(function (subject) {
+      var badge = document.createElement('span');
+      badge.className = 'badge';
+      badge.textContent = subject;
+      badges.appendChild(badge);
+    });
+    card.appendChild(badges);
+  }
+
+  if (tutor.bio) {
+    var bio = document.createElement('p');
+    bio.className = 'tutor-bio';
+    bio.textContent = tutor.bio;
+    card.appendChild(bio);
+  }
+
+  return card;
+}
+
+function renderTutors(container, tutors) {
+  clear(container);
+  if (!tutors.length) {
+    showMessage(container, 'empty-state', 'No tutors listed yet — check back soon!');
+    return;
+  }
+  var grid = document.createElement('div');
+  grid.className = 'grid grid-2 grid-3';
+  tutors.forEach(function (tutor) {
+    grid.appendChild(tutorCard(tutor));
+  });
+  container.appendChild(grid);
+}
+
+async function initTutors() {
+  const grid = document.getElementById('tutors-grid');
+
+  if (!grid) {
+    return;
+  }
+
+  let tutors;
+  try {
+    tutors = await loadJSON('data/tutors.json');
+  } catch (e) {
+    showMessage(grid, 'error-state', 'We could not load the tutor list right now — please refresh in a moment.');
+    return;
+  }
+
+  renderTutors(grid, tutors);
+}
+
 // ---- boot ----------------------------------------------------------------
 
 function boot() {
   initSubjects();
   initAnnouncements();
+  initTutors();
 }
 
 if (document.readyState === 'loading') {
