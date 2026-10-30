@@ -142,23 +142,18 @@ announcements render, the schedule search filters live, and the FAQ accordion wo
 
 ## Replacing the Google Form placeholders
 
-The Sign Up page (`signup.html`) embeds two Google Forms — one for students requesting a
-tutor and one for students who want to tutor. Both currently use the literal placeholder
-`FORM_ID_PLACEHOLDER`, so the embedded forms will show a Google error until the real IDs
-are added. The placeholder for each form appears **twice**: once in the `<iframe src="...">`
-and once in the "Open form in a new tab" link `href`. Replace **all four** occurrences.
+The Sign Up page (`signup.html`) embeds a single Google Form used by both students who want
+a tutor and students who want to tutor, plus a clickable "Open the sign-up form in a new tab"
+link as a fallback. The real form is already wired in.
 
-In `signup.html`:
+To swap in a different form later, replace the form ID — the long string after `/forms/d/e/`
+and before `/viewform` — in two spots in `signup.html`: the `<iframe src="...">` (keep the
+`?embedded=true` suffix) and the new-tab link `href`. The ID comes from the form's
+Send → embed (`< >`) URL, e.g. `https://docs.google.com/forms/d/e/REAL_ID_HERE/viewform`.
 
-1. **Student form** (under "I want a tutor"): replace `FORM_ID_PLACEHOLDER` with the real
-   student-request form ID in both the iframe `src` and the new-tab link.
-2. **Tutor form** (under "I want to tutor"): replace `FORM_ID_PLACEHOLDER` with the real
-   tutor-signup form ID in both the iframe `src` and the new-tab link.
-
-The form ID is the long string in a Google Form's share/embed URL, i.e. the part after
-`/forms/d/e/` and before `/viewform` in a link like
-`https://docs.google.com/forms/d/e/REAL_ID_HERE/viewform`. After replacing, also delete the
-`TODO` notes on the page so visitors do not see them.
+**Before sharing:** open the live form in an incognito window with a non-school account and
+submit a test response. If the form is restricted to your school's Google organization,
+outside students can't submit — change the setting to "anyone with the link."
 
 ## Deploying to GitHub Pages
 
@@ -186,8 +181,8 @@ A few items still need real information before the site is launch-ready. Each ha
   "Wednesdays, 3:30–4:30 PM — Room TODO". Update once the room is booked.
 - **Club email** — set to `wheelytutoringclub@gmail.com` in `js/layout.js` (`CLUB_EMAIL`)
   and `faq.html`. Update both spots if it ever changes.
-- **Replace both Google Form IDs** — swap `FORM_ID_PLACEHOLDER` in `signup.html` for the
-  real student and tutor form IDs (see the section above).
+- **Sign-up form** — the real Google Form is embedded in `signup.html`. Test that outside
+  students can submit it (see the Sign-up form section above).
 - **Add the sponsor acknowledgment** — `about.html` has a placeholder sponsor section; fill
   it in once Mr. Pyburn confirms.
 - **Review and edit the FAQ answers** — the answers in `faq.html` are placeholder copy;
