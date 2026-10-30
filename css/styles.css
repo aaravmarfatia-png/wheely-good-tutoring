@@ -38,10 +38,28 @@
   --step-3: 1.953rem;
   --step-4: 2.441rem;
 
-  --radius: 10px;
-  --radius-sm: 6px;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-lg: 20px;
   --container: 1100px;
   --prose: 70ch;
+
+  /* Softer, warmer elevation (new tokens — base colors unchanged) */
+  --shadow-sm: 0 1px 2px rgba(20, 32, 46, 0.04), 0 2px 8px rgba(20, 32, 46, 0.06);
+  --shadow-md: 0 2px 6px rgba(20, 32, 46, 0.06), 0 8px 24px rgba(20, 32, 46, 0.10);
+  --shadow-lg: 0 6px 16px rgba(20, 32, 46, 0.08), 0 16px 40px rgba(20, 32, 46, 0.12);
+
+  /* Subtle hero wash built from the accent token (theme-aware) */
+  --hero-tint: rgba(31, 95, 214, 0.10);
+  --hero-tint-2: rgba(31, 95, 214, 0.04);
+}
+[data-theme='dark'] {
+  /* Deeper, lower-opacity shadows read better on dark surfaces */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.30), 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 6px 16px rgba(0, 0, 0, 0.40), 0 16px 40px rgba(0, 0, 0, 0.50);
+  --hero-tint: rgba(106, 163, 255, 0.14);
+  --hero-tint-2: rgba(106, 163, 255, 0.05);
 }
 
 *,
@@ -58,7 +76,7 @@ body {
   margin: 0;
   font-family: var(--font-sans);
   font-size: 1.0625rem; /* 17px, within the 16-18px range */
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--text);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
@@ -105,7 +123,19 @@ svg {
 }
 
 .section {
+  padding-block: var(--space-6);
+}
+/* Nested sections keep tighter rhythm so pages don't sprawl */
+.section .section {
   padding-block: var(--space-5);
+}
+
+/* Intro paragraph under a section heading */
+.section-intro {
+  color: var(--muted);
+  font-size: var(--step-1);
+  max-width: var(--prose);
+  margin-top: calc(-1 * var(--space-1));
 }
 
 /* ---------------------------------------------------------------------------
@@ -189,6 +219,7 @@ svg {
 }
 .nav-list a {
   display: block;
+  position: relative;
   padding: var(--space-1) var(--space-2);
   color: var(--text);
   text-decoration: none;
@@ -198,9 +229,21 @@ svg {
 .nav-list a:hover {
   background: var(--bg);
 }
+/* Clearer active page: accent color, weight, and an underline bar */
 .nav-list a[aria-current='page'] {
   color: var(--accent);
   background: var(--bg);
+  font-weight: 700;
+}
+.nav-list a[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  left: var(--space-2);
+  right: var(--space-2);
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
 }
 
 .nav-toggle {
@@ -215,6 +258,14 @@ svg {
   color: var(--text);
   font-size: 1.25rem;
   cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.nav-toggle:hover {
+  border-color: var(--accent);
+}
+.nav.is-open .nav-toggle {
+  border-color: var(--accent);
+  background: var(--bg);
 }
 
 /* Dark-mode toggle button */
@@ -245,22 +296,30 @@ svg {
   align-items: center;
   justify-content: center;
   gap: var(--space-1);
-  padding: var(--space-1) var(--space-3);
-  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  min-height: 48px;
   border-radius: var(--radius);
   border: 1px solid transparent;
   font: inherit;
+  font-size: var(--step-1);
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease, transform 0.15s ease;
 }
 .btn-primary {
   background: var(--accent);
   color: #ffffff;
+  box-shadow: var(--shadow-sm);
 }
 .btn-primary:hover {
   background: #1a52ba;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.btn-primary:active {
+  transform: translateY(0);
 }
 [data-theme='dark'] .btn-primary {
   color: #0e141b;
@@ -269,18 +328,24 @@ svg {
   background: #8bb8ff;
 }
 .btn-secondary {
-  background: transparent;
+  background: var(--bg);
   color: var(--accent);
   border-color: var(--accent);
 }
 .btn-secondary:hover {
   background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+.btn-secondary:active {
+  transform: translateY(0);
 }
 
 .btn-row {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
+  gap: var(--space-3);
+  margin-top: var(--space-3);
 }
 
 /* ---------------------------------------------------------------------------
@@ -296,10 +361,37 @@ svg {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: var(--space-3);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+  border-color: var(--accent);
 }
 .card h3 {
   margin-top: 0;
+}
+
+/* "How it works" step cards: centered icon + number */
+.step-card {
+  text-align: center;
+}
+.step-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: var(--space-2);
+  color: var(--accent);
+  background: var(--hero-tint);
+  border-radius: 50%;
+}
+.step-icon svg {
+  width: 28px;
+  height: 28px;
 }
 
 /* Subject badges */
@@ -315,17 +407,46 @@ svg {
   border-radius: 999px;
 }
 .subject-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   color: var(--muted);
-  font-size: 0.875rem;
-  margin: 0 0 var(--space-1);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin: 0 0 var(--space-2);
+  padding: 3px var(--space-1);
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--border);
 }
+/* A small colored dot keys the category to a hue.
+   Colors are decorative accents only (text stays on muted for AA). */
+.subject-category::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cat-color, var(--accent));
+  flex: none;
+}
+.cat-math { --cat-color: #2f80ed; }
+.cat-science { --cat-color: #27ae60; }
+.cat-english { --cat-color: #9b51e0; }
+.cat-history { --cat-color: #e2873a; }
+.cat-languages { --cat-color: #eb5757; }
+.cat-cs { --cat-color: #11a0a6; }
 
 /* Announcements */
 .announcement {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: var(--space-3);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-3);
+}
+.announcement:last-child {
+  margin-bottom: 0;
 }
 .announcement-date {
   color: var(--muted);
@@ -346,10 +467,36 @@ svg {
 .empty-state,
 .error-state {
   color: var(--muted);
-  padding: var(--space-3);
+  padding: var(--space-4);
   background: var(--surface);
   border: 1px dashed var(--border);
   border-radius: var(--radius);
+  text-align: center;
+}
+
+/* ---------------------------------------------------------------------------
+   In-flow Sign Up CTA band (NOT fixed — stays in document flow, safe at 360px)
+--------------------------------------------------------------------------- */
+.cta-band {
+  background:
+    radial-gradient(900px 300px at 50% -40%, var(--hero-tint), transparent 60%),
+    var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-5) var(--space-4);
+  text-align: center;
+}
+.cta-band h2 {
+  margin-top: 0;
+}
+.cta-band p {
+  color: var(--muted);
+  max-width: 60ch;
+  margin-inline: auto;
+}
+.cta-band .btn-row {
+  justify-content: center;
 }
 
 /* Live search box */
@@ -394,11 +541,19 @@ details.accordion > summary + * {
 --------------------------------------------------------------------------- */
 .hero {
   padding-block: var(--space-6);
-  background: var(--surface);
+  /* Soft accent wash layered over the surface — reads well in both themes
+     because tints are derived from each theme's accent at low opacity. */
+  background:
+    radial-gradient(1200px 400px at 15% -10%, var(--hero-tint), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, var(--hero-tint-2), transparent 55%),
+    var(--surface);
   border-bottom: 1px solid var(--border);
 }
+.hero h1 {
+  font-size: clamp(2.2rem, 6vw, var(--step-4));
+}
 .hero p.lead {
-  font-size: var(--step-1);
+  font-size: var(--step-2);
   color: var(--muted);
   max-width: var(--prose);
 }
@@ -430,6 +585,26 @@ details.accordion > summary + * {
   border: 0;
 }
 
+/* Friendly intro line above each signup form */
+.form-intro {
+  color: var(--muted);
+  font-size: var(--step-1);
+  max-width: var(--prose);
+  margin-bottom: var(--space-2);
+}
+
+/* ---------------------------------------------------------------------------
+   404 friendly wheel
+--------------------------------------------------------------------------- */
+.notfound-wheel {
+  color: var(--accent);
+  margin-bottom: var(--space-3);
+}
+.notfound-wheel svg {
+  width: 96px;
+  height: 96px;
+}
+
 /* ---------------------------------------------------------------------------
    Footer
 --------------------------------------------------------------------------- */
@@ -437,6 +612,22 @@ details.accordion > summary + * {
   background: var(--surface);
   border-top: 1px solid var(--border);
   margin-top: var(--space-6);
+}
+/* Prominent Sign Up call-to-action band at the top of the footer */
+.footer-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+.footer-cta p {
+  margin: 0;
+  font-size: var(--step-1);
+  font-weight: 600;
+  color: var(--text);
 }
 .footer-inner {
   display: flex;
@@ -504,6 +695,20 @@ noscript nav {
   }
   body {
     font-size: 1.125rem; /* 18px on wider viewports */
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Motion — gated behind a no-preference query so reduced-motion users opt out
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes wheel-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .notfound-wheel svg {
+    animation: wheel-spin 14s linear infinite;
+    transform-origin: 50% 50%;
   }
 }
 

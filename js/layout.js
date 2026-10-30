@@ -95,6 +95,21 @@
     var footer = document.createElement('div');
     footer.className = 'site-footer';
 
+    // Prominent Sign Up call-to-action, present on every page via the footer.
+    var ctaWrap = document.createElement('div');
+    ctaWrap.className = 'container footer-cta';
+
+    var ctaText = document.createElement('p');
+    ctaText.textContent = 'Ready to get started? Join us for a free Wednesday session.';
+
+    var ctaBtn = document.createElement('a');
+    ctaBtn.className = 'btn btn-primary';
+    ctaBtn.href = 'signup.html';
+    ctaBtn.textContent = 'Sign Up';
+
+    ctaWrap.appendChild(ctaText);
+    ctaWrap.appendChild(ctaBtn);
+
     var inner = document.createElement('div');
     inner.className = 'container footer-inner';
 
@@ -122,6 +137,7 @@
 
     inner.appendChild(copy);
     inner.appendChild(links);
+    footer.appendChild(ctaWrap);
     footer.appendChild(inner);
 
     return footer;

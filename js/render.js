@@ -42,6 +42,20 @@ async function loadJSON(path) {
 
 // ---- subjects ------------------------------------------------------------
 
+// Maps a category name to a decorative color-class. The class only drives a
+// colored dot in CSS; the category text itself is still set via textContent.
+function categoryClass(name) {
+  switch (String(name).toLowerCase()) {
+    case 'math': return 'cat-math';
+    case 'science': return 'cat-science';
+    case 'english': return 'cat-english';
+    case 'history/social studies': return 'cat-history';
+    case 'world languages': return 'cat-languages';
+    case 'computer science': return 'cat-cs';
+    default: return '';
+  }
+}
+
 function subjectCard(subject) {
   const card = document.createElement('article');
   card.className = 'card subject-card';
@@ -52,6 +66,10 @@ function subjectCard(subject) {
 
   const category = document.createElement('p');
   category.className = 'subject-category';
+  const catClass = categoryClass(subject.category);
+  if (catClass) {
+    category.classList.add(catClass);
+  }
   category.textContent = subject.category;
   card.appendChild(category);
 
@@ -73,7 +91,7 @@ function subjectCard(subject) {
 function renderSubjects(container, subjects) {
   clear(container);
   if (!subjects.length) {
-    showMessage(container, 'empty-state', 'No subjects listed yet');
+    showMessage(container, 'empty-state', 'No subjects match that search — try another word, or come say hi on Wednesday!');
     return;
   }
   const grid = document.createElement('div');
@@ -98,10 +116,10 @@ async function initSubjects() {
     subjects = await loadJSON('data/subjects.json');
   } catch (e) {
     if (preview) {
-      showMessage(preview, 'error-state', 'Sorry, we could not load the subjects right now.');
+      showMessage(preview, 'error-state', 'We could not load the subject list right now — please refresh in a moment.');
     }
     if (grid) {
-      showMessage(grid, 'error-state', 'Sorry, we could not load the subjects right now.');
+      showMessage(grid, 'error-state', 'We could not load the subject list right now — please refresh in a moment.');
     }
     return;
   }
@@ -173,7 +191,7 @@ function announcementCard(item) {
 function renderAnnouncements(container, items) {
   clear(container);
   if (!items.length) {
-    showMessage(container, 'empty-state', 'No announcements yet');
+    showMessage(container, 'empty-state', 'No announcements yet — check back soon!');
     return;
   }
   items.forEach(function (item) {
@@ -194,10 +212,10 @@ async function initAnnouncements() {
     announcements = await loadJSON('data/announcements.json');
   } catch (e) {
     if (latest) {
-      showMessage(latest, 'error-state', 'Sorry, we could not load announcements right now.');
+      showMessage(latest, 'error-state', 'We could not load the latest news right now — please refresh in a moment.');
     }
     if (list) {
-      showMessage(list, 'error-state', 'Sorry, we could not load announcements right now.');
+      showMessage(list, 'error-state', 'We could not load the latest news right now — please refresh in a moment.');
     }
     return;
   }

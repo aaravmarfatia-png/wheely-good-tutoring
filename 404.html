@@ -50,8 +50,22 @@
   <main id="main">
     <section class="section">
       <div class="container prose">
-        <h1>Page not found</h1>
-        <p>Sorry, we could not find the page you were looking for. It may have moved or never existed.</p>
+        <span class="notfound-wheel" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"></circle>
+            <circle cx="12" cy="12" r="3"></circle>
+            <line x1="12" y1="3" x2="12" y2="9"></line>
+            <line x1="12" y1="15" x2="12" y2="21"></line>
+            <line x1="3" y1="12" x2="9" y2="12"></line>
+            <line x1="15" y1="12" x2="21" y2="12"></line>
+            <line x1="5.6" y1="5.6" x2="9.9" y2="9.9"></line>
+            <line x1="14.1" y1="14.1" x2="18.4" y2="18.4"></line>
+            <line x1="18.4" y1="5.6" x2="14.1" y2="9.9"></line>
+            <line x1="9.9" y1="14.1" x2="5.6" y2="18.4"></line>
+          </svg>
+        </span>
+        <h1>Looks like this page took a wrong turn</h1>
+        <p>We couldn't find the page you were after — it may have moved or never existed. No worries, let's get you rolling again.</p>
         <p class="btn-row">
           <a class="btn btn-primary" href="index.html">Back to home</a>
         </p>
