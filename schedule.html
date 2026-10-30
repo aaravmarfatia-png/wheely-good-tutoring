@@ -26,13 +26,14 @@
   <!-- Optional progressive-enhancement font (ONLY allowed external dependency). System stack is the fallback. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
 
   <link rel="stylesheet" href="css/styles.css">
 
   <!-- page scripts: non-render-blocking. layout + theme on every page; render.js only where needed -->
   <script src="js/layout.js" defer></script>
   <script src="js/theme.js" defer></script>
+  <script src="js/reveal.js" defer></script>
   <script type="module" src="js/render.js"></script>
 </head>
 <body data-page="schedule">
@@ -81,7 +82,7 @@
         </section>
 
         <section class="section">
-          <div class="cta-band">
+          <div class="cta-band" data-reveal>
             <h2>See a subject you need?</h2>
             <p>Sign up and we'll pair you with a tutor for the next Wednesday session.</p>
             <p class="btn-row">

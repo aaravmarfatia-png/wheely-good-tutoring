@@ -26,13 +26,14 @@
   <!-- Optional progressive-enhancement font (ONLY allowed external dependency). System stack is the fallback. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
 
   <link rel="stylesheet" href="css/styles.css">
 
   <!-- page scripts: non-render-blocking. layout + theme on every page; render.js only where needed -->
   <script src="js/layout.js" defer></script>
   <script src="js/theme.js" defer></script>
+  <script src="js/reveal.js" defer></script>
 </head>
 <body data-page="faq">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -54,32 +55,32 @@
       <div class="container prose">
         <h1>FAQ &amp; Contact</h1>
 
-        <details class="accordion">
+        <details class="accordion" data-reveal>
           <summary>Is it really free?</summary>
           <p>Yes. Wheely Good Tutoring is completely free. There is never a charge to get help or to tutor.</p>
         </details>
 
-        <details class="accordion">
+        <details class="accordion" data-reveal>
           <summary>Who can come?</summary>
           <p>Any Wheeler student is welcome, whether you need help in one subject or several.</p>
         </details>
 
-        <details class="accordion">
+        <details class="accordion" data-reveal>
           <summary>Do I need to sign up first?</summary>
           <p>Signing up helps us match you with the right tutor, but you are always welcome to drop in on a Wednesday.</p>
         </details>
 
-        <details class="accordion">
+        <details class="accordion" data-reveal>
           <summary>What should I bring?</summary>
           <p>Bring the assignment, notes, or materials for whatever you want to work on, and anything you have tried so far.</p>
         </details>
 
-        <details class="accordion">
+        <details class="accordion" data-reveal>
           <summary>How are tutors chosen?</summary>
           <p>Tutors are fellow students who are confident in a subject and want to help. Sign up on the tutor form to get involved.</p>
         </details>
 
-        <details class="accordion">
+        <details class="accordion" data-reveal>
           <summary>Who sponsors the club?</summary>
           <p>Our sponsor details are being finalized and will be shared here soon.</p>
         </details>
@@ -91,7 +92,7 @@
 
     <section class="section">
       <div class="container">
-        <div class="cta-band">
+        <div class="cta-band" data-reveal>
           <h2>Still curious?</h2>
           <p>The best way to find out is to join us. Sign up to get help or to tutor.</p>
           <p class="btn-row">

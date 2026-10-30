@@ -26,13 +26,14 @@
   <!-- Optional progressive-enhancement font (ONLY allowed external dependency). System stack is the fallback. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
 
   <link rel="stylesheet" href="css/styles.css">
 
   <!-- page scripts: non-render-blocking. layout + theme on every page; render.js only where needed -->
   <script src="js/layout.js" defer></script>
   <script src="js/theme.js" defer></script>
+  <script src="js/reveal.js" defer></script>
   <script type="module" src="js/render.js"></script>
 </head>
 <body data-page="home">
@@ -67,7 +68,7 @@
         <h2>How it works</h2>
         <p class="section-intro">Three easy steps from stuck to sorted.</p>
         <div class="grid grid-3">
-          <article class="card step-card">
+          <article class="card step-card" data-reveal>
             <span class="step-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
@@ -79,7 +80,7 @@
             <h3>1. Sign up</h3>
             <p>Tell us what you need help with, or let us know you want to tutor. It only takes a minute.</p>
           </article>
-          <article class="card step-card">
+          <article class="card step-card" data-reveal>
             <span class="step-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -91,7 +92,7 @@
             <h3>2. Show up Wednesday</h3>
             <p>Come to our weekly session and find your tutor or your student. Drop-ins are welcome too.</p>
           </article>
-          <article class="card step-card">
+          <article class="card step-card" data-reveal>
             <span class="step-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
@@ -124,7 +125,7 @@
 
     <section class="section">
       <div class="container">
-        <div class="cta-band">
+        <div class="cta-band" data-reveal>
           <h2>Ready when you are</h2>
           <p>Whether you want a hand with a tough subject or you're ready to share what you know, we'd love to have you.</p>
           <p class="btn-row">

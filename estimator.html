@@ -26,13 +26,14 @@
   <!-- Optional progressive-enhancement font (ONLY allowed external dependency). System stack is the fallback. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
 
   <link rel="stylesheet" href="css/styles.css">
 
   <!-- page scripts: non-render-blocking. layout + theme on every page; estimator.js only here -->
   <script src="js/layout.js" defer></script>
   <script src="js/theme.js" defer></script>
+  <script src="js/reveal.js" defer></script>
   <script src="js/estimator.js" defer></script>
 </head>
 <body data-page="estimator">
@@ -60,7 +61,7 @@
           left — so you know how hard to push.
         </p>
 
-        <form id="estimator-form" class="card estimator-form" novalidate>
+        <form id="estimator-form" class="card estimator-form" data-reveal novalidate>
           <div class="field">
             <label for="current-grade">Your current grade (%)</label>
             <input type="number" id="current-grade" name="current-grade"
