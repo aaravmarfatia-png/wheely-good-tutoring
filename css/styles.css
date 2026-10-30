@@ -842,7 +842,7 @@ details.accordion > summary + * {
   padding-block: var(--space-4);
   color: var(--muted);
 }
-.site-footer a {
+.site-footer a:not(.btn) {
   color: var(--accent);
 }
 
