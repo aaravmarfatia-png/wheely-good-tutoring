@@ -184,8 +184,8 @@ A few items still need real information before the site is launch-ready. Each ha
 
 - **Confirm the Wednesday time and room** — `schedule.html` currently reads
   "Wednesdays, 3:30–4:30 PM — Room TODO". Update once the room is booked.
-- **Replace the club email** — `wheelygoodtutoring@example.com` is a placeholder. Update it
-  in `js/layout.js` (`CLUB_EMAIL`) and in `faq.html`.
+- **Club email** — set to `wheelytutoringclub@gmail.com` in `js/layout.js` (`CLUB_EMAIL`)
+  and `faq.html`. Update both spots if it ever changes.
 - **Replace both Google Form IDs** — swap `FORM_ID_PLACEHOLDER` in `signup.html` for the
   real student and tutor form IDs (see the section above).
 - **Add the sponsor acknowledgment** — `about.html` has a placeholder sponsor section; fill

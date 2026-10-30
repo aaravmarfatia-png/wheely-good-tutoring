@@ -21,7 +21,7 @@
     { page: 'faq', href: 'faq.html', label: 'FAQ & Contact' }
   ];
 
-  var CLUB_EMAIL = 'wheelygoodtutoring@example.com';
+  var CLUB_EMAIL = 'wheelytutoringclub@gmail.com';
 
   function buildHeader() {
     var currentPage = document.body.dataset.page || '';
@@ -121,7 +121,7 @@
     var links = document.createElement('p');
     links.style.margin = '0';
 
-    // TODO(founders): replace wheelygoodtutoring@example.com with the real club email.
+    // Club email address.
     var email = document.createElement('a');
     email.href = 'mailto:' + CLUB_EMAIL;
     email.textContent = CLUB_EMAIL;

@@ -1,68 +1,58 @@
 [
   {
-    "name": "Algebra I & II",
-    "category": "Math",
-    "levels": ["Honors", "College Prep"]
+    "name": "Pre-Algebra",
+    "category": "Math"
+  },
+  {
+    "name": "Algebra 1",
+    "category": "Math"
   },
   {
     "name": "Geometry",
-    "category": "Math",
-    "levels": ["Honors", "College Prep"]
+    "category": "Math"
   },
   {
-    "name": "Pre-Calculus & Calculus",
-    "category": "Math",
-    "levels": ["AP", "Honors"]
+    "name": "Algebra 2",
+    "category": "Math"
   },
   {
     "name": "Biology",
-    "category": "Science",
-    "levels": ["Honors", "College Prep"]
-  },
-  {
-    "name": "Chemistry",
-    "category": "Science",
-    "levels": ["AP", "College Prep"]
-  },
-  {
-    "name": "Physics",
     "category": "Science"
   },
   {
-    "name": "Literature & Composition",
-    "category": "English",
-    "levels": ["AP", "College Prep"]
+    "name": "Chemistry",
+    "category": "Science"
   },
   {
-    "name": "Writing & Grammar",
+    "name": "Literature",
     "category": "English"
   },
   {
-    "name": "US History",
-    "category": "History/Social Studies",
-    "levels": ["AP", "College Prep"]
+    "name": "Composition",
+    "category": "English"
   },
   {
-    "name": "World History",
+    "name": "Social Studies",
     "category": "History/Social Studies"
   },
   {
-    "name": "Spanish",
-    "category": "World Languages",
-    "levels": ["I", "II", "III", "IV"]
+    "name": "Spanish 1",
+    "category": "World Languages"
   },
   {
-    "name": "French",
-    "category": "World Languages",
-    "levels": ["I", "II", "III"]
+    "name": "Spanish 2",
+    "category": "World Languages"
   },
   {
-    "name": "Intro to Programming",
-    "category": "Computer Science"
+    "name": "Spanish 3",
+    "category": "World Languages"
   },
   {
-    "name": "AP Computer Science",
-    "category": "Computer Science",
-    "levels": ["AP"]
+    "name": "Spanish 4",
+    "category": "World Languages"
+  },
+  {
+    "name": "Other subjects available on request",
+    "category": "Other"
   }
 ]
