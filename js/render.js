@@ -61,9 +61,54 @@ function categoryClass(name) {
   }
 }
 
-function subjectCard(subject) {
+// Build one subject card. When `expandable` is true (the schedule grid) and the
+// subject carries a non-empty topics array, the card wraps its header in a
+// native <details>/<summary> that reveals a topic list; otherwise it renders a
+// plain card (the home preview, or any subject with no topics). All data text
+// is set via textContent — never innerHTML.
+function subjectCard(subject, expandable) {
   const card = document.createElement('article');
   card.className = 'card subject-card';
+
+  const topics = Array.isArray(subject.topics) ? subject.topics : [];
+
+  if (expandable && topics.length) {
+    const details = document.createElement('details');
+    details.className = 'subject-details';
+
+    const summary = document.createElement('summary');
+    summary.className = 'subject-summary';
+
+    const heading = document.createElement('h3');
+    heading.textContent = subject.name;
+    summary.appendChild(heading);
+
+    const category = document.createElement('span');
+    category.className = 'subject-category';
+    category.classList.add(categoryClass(subject.category));
+    category.textContent = subject.category;
+    summary.appendChild(category);
+
+    // Decorative chevron affordance; hidden from assistive tech.
+    const chevron = document.createElement('span');
+    chevron.className = 'subject-chevron';
+    chevron.setAttribute('aria-hidden', 'true');
+    summary.appendChild(chevron);
+
+    details.appendChild(summary);
+
+    const list = document.createElement('ul');
+    list.className = 'subject-topics';
+    topics.forEach(function (topic) {
+      const item = document.createElement('li');
+      item.textContent = topic;
+      list.appendChild(item);
+    });
+    details.appendChild(list);
+
+    card.appendChild(details);
+    return card;
+  }
 
   const heading = document.createElement('h3');
   heading.textContent = subject.name;
@@ -90,7 +135,7 @@ function subjectCard(subject) {
   return card;
 }
 
-function renderSubjects(container, subjects) {
+function renderSubjects(container, subjects, expandable) {
   clear(container);
   if (!subjects.length) {
     showMessage(container, 'empty-state', 'No subjects match that search — try another word, or come say hi on Wednesday!');
@@ -99,7 +144,7 @@ function renderSubjects(container, subjects) {
   const grid = document.createElement('div');
   grid.className = 'grid grid-2 grid-3';
   subjects.forEach(function (subject) {
-    grid.appendChild(subjectCard(subject));
+    grid.appendChild(subjectCard(subject, expandable));
   });
   container.appendChild(grid);
 }
@@ -127,7 +172,8 @@ async function initSubjects() {
   }
 
   if (preview) {
-    renderSubjects(preview, subjects.slice(0, 6));
+    // Home preview stays a simple, non-expandable teaser (first 6).
+    renderSubjects(preview, subjects.slice(0, 6), false);
   }
 
   if (grid) {
@@ -138,7 +184,8 @@ async function initSubjects() {
             return String(s.name).toLowerCase().indexOf(term) !== -1;
           })
         : subjects;
-      renderSubjects(grid, filtered);
+      // Schedule grid cards are expandable where topics exist.
+      renderSubjects(grid, filtered, true);
     };
     apply();
     if (search) {

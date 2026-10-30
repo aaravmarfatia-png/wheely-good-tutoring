@@ -689,6 +689,82 @@ details.accordion > summary + * {
 }
 
 /* ---------------------------------------------------------------------------
+   Expandable subject cards (schedule grid) — reuses the native <details>
+   accordion approach for keyboard access, with a rotating chevron affordance.
+--------------------------------------------------------------------------- */
+.subject-details {
+  /* The card already supplies surface/border/padding, so the details fills it. */
+  margin: calc(-1 * var(--space-4));
+  padding: var(--space-4);
+}
+.subject-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-2);
+  cursor: pointer;
+  list-style: none; /* remove default disclosure triangle */
+}
+/* Hide the default marker across browsers. */
+.subject-summary::-webkit-details-marker {
+  display: none;
+}
+.subject-summary::marker {
+  content: '';
+}
+.subject-summary > h3 {
+  margin: 0;
+  /* Allow long subject names to wrap cleanly at narrow widths. */
+  overflow-wrap: anywhere;
+}
+.subject-summary > .subject-category {
+  margin: 0;
+}
+/* Chevron affordance, pushed to the end of the row. */
+.subject-chevron {
+  flex: none;
+  margin-left: auto;
+  width: 11px;
+  height: 11px;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.subject-details[open] .subject-chevron {
+  transform: rotate(-135deg);
+}
+/* Visible keyboard focus on the summary itself. */
+.subject-summary:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+.subject-topics {
+  margin: var(--space-2) 0 0;
+  padding-left: var(--space-3);
+  color: var(--text);
+}
+.subject-topics li {
+  margin-bottom: 4px;
+  overflow-wrap: anywhere;
+}
+.subject-topics li:last-child {
+  margin-bottom: 0;
+}
+/* Smooth open reveal, gated behind no-preference so reduced-motion users opt
+   out (the global reduced-motion rule also neutralizes transitions above). */
+@media (prefers-reduced-motion: no-preference) {
+  .subject-details[open] .subject-topics {
+    animation: subject-topics-in 0.2s ease;
+  }
+  @keyframes subject-topics-in {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ---------------------------------------------------------------------------
    Hero / how-it-works
 --------------------------------------------------------------------------- */
 .hero {
