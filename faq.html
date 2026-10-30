@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAQ &amp; Contact — Wheely Good Tutoring</title>
+  <meta name="description" content="Answers to common questions about Wheely Good Tutoring, plus how to get in touch.">
+
+  <!-- Open Graph (per page) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FAQ &amp; Contact — Wheely Good Tutoring">
+  <meta property="og:description" content="Answers to common questions about Wheely Good Tutoring, plus how to get in touch.">
+  <meta property="og:image" content="assets/logo.svg">
+
+  <!-- Favicon (relative, every page) -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- EXACT inline theme script: must run before the stylesheet link / before first paint -->
+  <script>
+    let saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (e) {}
+    const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.dataset.theme = saved ?? (prefersDark ? 'dark' : 'light');
+  </script>
+
+  <!-- Optional progressive-enhancement font (ONLY allowed external dependency). System stack is the fallback. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- page scripts: non-render-blocking. layout + theme on every page; render.js only where needed -->
+  <script src="js/layout.js" defer></script>
+  <script src="js/theme.js" defer></script>
+</head>
+<body data-page="faq">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header id="site-header"></header>
+
+  <noscript>
+    <nav aria-label="Primary (no JavaScript)">
+      <a href="index.html">Home</a> · <a href="about.html">About</a> ·
+      <a href="schedule.html">Schedule &amp; Subjects</a> · <a href="signup.html">Sign Up</a> ·
+      <a href="news.html">News</a> · <a href="faq.html">FAQ &amp; Contact</a>
+    </nav>
+  </noscript>
+
+  <main id="main">
+    <section class="section">
+      <div class="container prose">
+        <h1>FAQ &amp; Contact</h1>
+
+        <details class="accordion">
+          <summary>Is it really free?</summary>
+          <p>Yes. Wheely Good Tutoring is completely free. There is never a charge to get help or to tutor.</p>
+        </details>
+
+        <details class="accordion">
+          <summary>Who can come?</summary>
+          <p>Any Wheeler student is welcome, whether you need help in one subject or several.</p>
+        </details>
+
+        <details class="accordion">
+          <summary>Do I need to sign up first?</summary>
+          <p>Signing up helps us match you with the right tutor, but you are always welcome to drop in on a Wednesday.</p>
+        </details>
+
+        <details class="accordion">
+          <summary>What should I bring?</summary>
+          <p>Bring the assignment, notes, or materials for whatever you want to work on, and anything you have tried so far.</p>
+        </details>
+
+        <details class="accordion">
+          <summary>How are tutors chosen?</summary>
+          <p>Tutors are fellow students who are confident in a subject and want to help. Sign up on the tutor form to get involved.</p>
+        </details>
+
+        <details class="accordion">
+          <summary>Who sponsors the club?</summary>
+          <p>Our sponsor details are being finalized and will be shared here soon.</p>
+        </details>
+
+        <h2>Contact</h2>
+        <!-- TODO(founders): replace with the real club email address -->
+        <p>Questions? Email us at <a href="mailto:wheelygoodtutoring@example.com">wheelygoodtutoring@example.com</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+</body>
+</html>

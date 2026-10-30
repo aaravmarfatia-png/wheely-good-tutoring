@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up — Wheely Good Tutoring</title>
+  <meta name="description" content="Sign up to get tutored or to become a peer tutor with Wheely Good Tutoring.">
+
+  <!-- Open Graph (per page) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sign Up — Wheely Good Tutoring">
+  <meta property="og:description" content="Sign up to get tutored or to become a peer tutor with Wheely Good Tutoring.">
+  <meta property="og:image" content="assets/logo.svg">
+
+  <!-- Favicon (relative, every page) -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- EXACT inline theme script: must run before the stylesheet link / before first paint -->
+  <script>
+    let saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (e) {}
+    const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.dataset.theme = saved ?? (prefersDark ? 'dark' : 'light');
+  </script>
+
+  <!-- Optional progressive-enhancement font (ONLY allowed external dependency). System stack is the fallback. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- page scripts: non-render-blocking. layout + theme on every page; render.js only where needed -->
+  <script src="js/layout.js" defer></script>
+  <script src="js/theme.js" defer></script>
+</head>
+<body data-page="signup">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header id="site-header"></header>
+
+  <noscript>
+    <nav aria-label="Primary (no JavaScript)">
+      <a href="index.html">Home</a> · <a href="about.html">About</a> ·
+      <a href="schedule.html">Schedule &amp; Subjects</a> · <a href="signup.html">Sign Up</a> ·
+      <a href="news.html">News</a> · <a href="faq.html">FAQ &amp; Contact</a>
+    </nav>
+  </noscript>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <h1>Sign Up</h1>
+        <p class="prose">
+          Pick the form that fits you. Students who want help use the first form; students
+          who want to tutor use the second.
+        </p>
+
+        <section class="section" aria-labelledby="want-tutor-heading">
+          <h2 id="want-tutor-heading">I want a tutor</h2>
+          <!-- TODO(founders): replace FORM_ID_PLACEHOLDER with the real STUDENT form ID (embed src + new-tab link below). -->
+          <p class="muted"><strong>TODO:</strong> Replace <code>FORM_ID_PLACEHOLDER</code> with the real student request form ID.</p>
+          <div class="form-card">
+            <iframe
+              src="https://docs.google.com/forms/d/e/FORM_ID_PLACEHOLDER/viewform?embedded=true"
+              width="100%"
+              title="Student tutoring request form"
+              loading="lazy">Loading…</iframe>
+            <p><a href="https://docs.google.com/forms/d/e/FORM_ID_PLACEHOLDER/viewform?embedded=true" target="_blank" rel="noopener">Open form in a new tab</a></p>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="want-to-tutor-heading">
+          <h2 id="want-to-tutor-heading">I want to tutor</h2>
+          <!-- TODO(founders): replace FORM_ID_PLACEHOLDER with the real TUTOR form ID (embed src + new-tab link below). -->
+          <p class="muted"><strong>TODO:</strong> Replace <code>FORM_ID_PLACEHOLDER</code> with the real tutor signup form ID.</p>
+          <div class="form-card">
+            <iframe
+              src="https://docs.google.com/forms/d/e/FORM_ID_PLACEHOLDER/viewform?embedded=true"
+              width="100%"
+              title="Tutor signup form"
+              loading="lazy">Loading…</iframe>
+            <p><a href="https://docs.google.com/forms/d/e/FORM_ID_PLACEHOLDER/viewform?embedded=true" target="_blank" rel="noopener">Open form in a new tab</a></p>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+</body>
+</html>

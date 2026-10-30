@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Wheely Good Tutoring</title>
+  <meta name="description" content="Why we started Wheely Good Tutoring and how a free peer tutoring session at Wheeler works.">
+
+  <!-- Open Graph (per page) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="About — Wheely Good Tutoring">
+  <meta property="og:description" content="Why we started Wheely Good Tutoring and how a free peer tutoring session at Wheeler works.">
+  <meta property="og:image" content="assets/logo.svg">
+
+  <!-- Favicon (relative, every page) -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- EXACT inline theme script: must run before the stylesheet link / before first paint -->
+  <script>
+    let saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (e) {}
+    const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.dataset.theme = saved ?? (prefersDark ? 'dark' : 'light');
+  </script>
+
+  <!-- Optional progressive-enhancement font (ONLY allowed external dependency). System stack is the fallback. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- page scripts: non-render-blocking. layout + theme on every page; render.js only where needed -->
+  <script src="js/layout.js" defer></script>
+  <script src="js/theme.js" defer></script>
+</head>
+<body data-page="about">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header id="site-header"></header>
+
+  <noscript>
+    <nav aria-label="Primary (no JavaScript)">
+      <a href="index.html">Home</a> · <a href="about.html">About</a> ·
+      <a href="schedule.html">Schedule &amp; Subjects</a> · <a href="signup.html">Sign Up</a> ·
+      <a href="news.html">News</a> · <a href="faq.html">FAQ &amp; Contact</a>
+    </nav>
+  </noscript>
+
+  <main id="main">
+    <section class="section">
+      <div class="container prose">
+        <h1>About Wheely Good Tutoring</h1>
+
+        <h2>Our mission</h2>
+        <p>
+          Wheely Good Tutoring is a free, student-run peer tutoring club at Wheeler. Our
+          mission is simple: make sure no student has to struggle alone. Every Wednesday we
+          bring students and peer tutors together so that help is always within reach.
+        </p>
+
+        <h2>Why we started</h2>
+        <p>
+          The club began with a familiar feeling. A student gets confused by a concept in
+          class, the lesson moves on, and there is no personal tutor to turn to afterward.
+          Not everyone can access private tutoring, so we built a place where that help is
+          free and open to anyone who shows up.
+        </p>
+
+        <h2>How a session works</h2>
+        <p>
+          Sessions are relaxed and student-led. Come by with the assignment or topic you
+          want to work on. We pair you with a peer tutor who knows the subject, and you work
+          through it together at your own pace. No appointment pressure, no cost, just
+          students helping students.
+        </p>
+
+        <!-- TODO(founders): add sponsor acknowledgment after Mr. Pyburn confirms -->
+        <section aria-labelledby="sponsor-heading">
+          <h2 id="sponsor-heading">Our sponsor</h2>
+          <p class="muted">
+            Placeholder: a sponsor acknowledgment will go here once confirmed. Founders,
+            replace this block with the sponsor's name and a short thank-you.
+          </p>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+</body>
+</html>
