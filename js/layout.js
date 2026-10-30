@@ -15,6 +15,7 @@
     { page: 'home', href: 'index.html', label: 'Home' },
     { page: 'about', href: 'about.html', label: 'About' },
     { page: 'schedule', href: 'schedule.html', label: 'Schedule & Subjects' },
+    { page: 'estimator', href: 'estimator.html', label: 'Grade Estimator' },
     { page: 'tutors', href: 'tutors.html', label: 'Meet the Tutors' },
     { page: 'signup', href: 'signup.html', label: 'Sign Up' },
     { page: 'news', href: 'news.html', label: 'News' },

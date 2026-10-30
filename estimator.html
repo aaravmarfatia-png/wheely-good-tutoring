@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grade Estimator — Wheely Good Tutoring</title>
+  <meta name="description" content="Estimate how hard you'll have to work on what's left of a class to reach your target grade — a free study tool from Wheely Good Tutoring.">
+
+  <!-- Open Graph (per page) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Grade Estimator — Wheely Good Tutoring">
+  <meta property="og:description" content="Estimate how hard you'll have to work on what's left of a class to reach your target grade — a free study tool from Wheely Good Tutoring.">
+  <meta property="og:image" content="assets/logo.svg">
+
+  <!-- Favicon (relative, every page) -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- EXACT inline theme script: must run before the stylesheet link / before first paint -->
+  <script>
+    let saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (e) {}
+    const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.dataset.theme = saved ?? (prefersDark ? 'dark' : 'light');
+  </script>
+
+  <!-- Optional progressive-enhancement font (ONLY allowed external dependency). System stack is the fallback. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- page scripts: non-render-blocking. layout + theme on every page; estimator.js only here -->
+  <script src="js/layout.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/estimator.js" defer></script>
+</head>
+<body data-page="estimator">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header id="site-header"></header>
+
+  <noscript>
+    <nav aria-label="Primary (no JavaScript)">
+      <a href="index.html">Home</a> · <a href="about.html">About</a> ·
+      <a href="schedule.html">Schedule &amp; Subjects</a> ·
+      <a href="estimator.html">Grade Estimator</a> · <a href="tutors.html">Meet the Tutors</a> ·
+      <a href="signup.html">Sign Up</a> · <a href="news.html">News</a> ·
+      <a href="faq.html">FAQ &amp; Contact</a>
+    </nav>
+  </noscript>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <h1>Grade Estimator</h1>
+        <p class="section-intro">
+          Put in where your grade stands now, where you want it to land, and how much of your
+          grade is still up for grabs. We'll estimate the average score you'd need on what's
+          left — so you know how hard to push.
+        </p>
+
+        <form id="estimator-form" class="card estimator-form" novalidate>
+          <div class="field">
+            <label for="current-grade">Your current grade (%)</label>
+            <input type="number" id="current-grade" name="current-grade"
+                   min="0" max="100" step="0.1" inputmode="decimal"
+                   autocomplete="off" aria-describedby="current-grade-help">
+            <p id="current-grade-help" class="field-help">
+              The grade you have in the class right now.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="target-grade">Your target grade (%)</label>
+            <input type="number" id="target-grade" name="target-grade"
+                   min="0" max="100" step="0.1" inputmode="decimal"
+                   autocomplete="off" aria-describedby="target-grade-help">
+            <p id="target-grade-help" class="field-help">
+              The overall grade you're aiming to finish with.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="remaining-number">How much of your grade is still left? (%)</label>
+            <div class="remaining-controls">
+              <input type="number" id="remaining-number" name="remaining-number"
+                     min="0" max="100" step="0.1" value="20" inputmode="decimal"
+                     autocomplete="off" aria-describedby="remaining-help">
+              <input type="range" id="remaining-range" name="remaining-range"
+                     min="0" max="100" step="0.1" value="20"
+                     aria-label="How much of your grade is still left, in percent"
+                     aria-describedby="remaining-help">
+            </div>
+            <p id="remaining-help" class="field-help">
+              The portion of your course grade that isn't decided yet — for example a final
+              exam worth 20%, or the assignments still to come. Defaults to 20%.
+            </p>
+          </div>
+
+          <div class="btn-row">
+            <button type="submit" class="btn btn-primary">Calculate</button>
+          </div>
+        </form>
+
+        <div id="estimator-result" class="estimator-result" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+</body>
+</html>
