@@ -615,6 +615,16 @@ svg {
   margin-top: var(--space-2);
   margin-bottom: 0;
 }
+.tutor-achievements {
+  color: var(--text);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: var(--space-1) 0 0;
+}
+.tutor-achievements-label {
+  font-weight: 700;
+  color: var(--accent);
+}
 
 /* ---------------------------------------------------------------------------
    In-flow Sign Up CTA band (NOT fixed — stays in document flow, safe at 360px)

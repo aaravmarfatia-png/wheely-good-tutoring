@@ -292,21 +292,21 @@ function tutorCard(tutor, categoryByName) {
     card.appendChild(grade);
   }
 
-  if (Array.isArray(tutor.subjects) && tutor.subjects.length) {
-    var badges = document.createElement('p');
-    badges.className = 'badge-row';
-    tutor.subjects.forEach(function (subject) {
-      var badge = document.createElement('span');
-      badge.className = 'badge';
-      // Color-key the badge by the subject NAME's category. Unknown names fall
-      // back to cat-other (categoryClass never returns empty), so every badge
-      // is themed. The badge text itself is still the subject name, set below.
-      var category = categoryByName ? categoryByName[subject] : undefined;
-      badge.classList.add(categoryClass(category));
-      badge.textContent = subject;
-      badges.appendChild(badge);
-    });
-    card.appendChild(badges);
+  // Show achievements (where the subject badges used to be). Only render when
+  // a non-empty string is present, so tutors without achievements stay clean.
+  if (typeof tutor.achievements === 'string' && tutor.achievements.trim()) {
+    var achWrap = document.createElement('p');
+    achWrap.className = 'tutor-achievements';
+
+    var achLabel = document.createElement('span');
+    achLabel.className = 'tutor-achievements-label';
+    achLabel.textContent = 'Achievements: ';
+    achWrap.appendChild(achLabel);
+
+    var achText = document.createTextNode(tutor.achievements);
+    achWrap.appendChild(achText);
+
+    card.appendChild(achWrap);
   }
 
   if (tutor.bio) {
